@@ -14,7 +14,7 @@ namespace PropertiesApi.Application.Features.Owners.V1.Commands.CreateProperty
             {
                 return Results.Ok(await sender.Send(datos));
             }).WithTags(Tags.Properties.Tag)
-            .RequireAuthorization();
+            .RequireAuthorization().WithDisplayName("display Name").WithSummary("summary").WithTags("tags").WithName("name").WithMetadata("metadata");
         }
     }
 }

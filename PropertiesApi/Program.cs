@@ -7,6 +7,7 @@ using PropertiesApi;
 using PropertiesApi.Domain.Options;
 using SixLabors.ImageSharp;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 using System.Text;
 
 
@@ -36,7 +37,7 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
-{
+{  
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Real Estates Information", Version = "v1" });
     c.MapType<IFormFile>(() => new OpenApiSchema { Type = "string", Format = "binary" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -48,6 +49,7 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "Bearer",
         BearerFormat = "JWT"
     });
+    
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
@@ -62,6 +64,7 @@ builder.Services.AddSwaggerGen(c =>
                     Array.Empty<string>()
                 }
             });
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
 });
 
 // Define el filtro para Swagger

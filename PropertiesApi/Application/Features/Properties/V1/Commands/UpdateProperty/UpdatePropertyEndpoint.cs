@@ -2,15 +2,15 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PropertiesApi.Application.Common;
-using PropertiesApi.Application.Features.Owners.V1.Commands.CreateProperty;
 
-namespace PropertiesApi.Application.Features.Owners.V1.Commands.CreatePropertyImage
+
+namespace PropertiesApi.Application.Features.Owners.V1.Commands.UpdateProperty
 {
-    public class CreatePropertyImageEndpoint : ICarterModule
+    public class UpdatePropertyEndpoint : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapPost($"{Tags.RutaVersionUno}create-property-image", async (CreatePropertyImageCommand datos, ISender sender) =>
+            app.MapPost($"{Tags.RutaVersionUno}update-property", async (UpdatePropertyCommand datos, ISender sender) =>
             {
                 return Results.Ok(await sender.Send(datos));
             }).WithTags(Tags.Properties.Tag)
