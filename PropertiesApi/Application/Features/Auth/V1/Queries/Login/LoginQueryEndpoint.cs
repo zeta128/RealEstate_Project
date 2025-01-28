@@ -16,7 +16,8 @@ namespace PropertiesApi.Application.Features.Auth.V1.Commmands.Login
       
                 return Results.Ok(respuesta);
             }).WithTags(Tags.Login.Tag)
-            .WithDescription("<b>Filtros:</b> noresolucion,tiporesolucionid, programaid, procesoid, estadoid, fechacreacion, fechainiciorango, fechafinrango, usuarioid")
+            .WithSummary("This endpoint can be used to get the token")
+            .WithDescription("<b>At the moment the endpoint don´t need a username and password, but the login will be configured later</b> ")
             ;
         }
     }

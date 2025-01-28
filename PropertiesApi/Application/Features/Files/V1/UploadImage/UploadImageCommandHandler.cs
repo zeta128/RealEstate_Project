@@ -10,24 +10,12 @@ namespace PropertiesApi.Application.Features.Files.V1.UploadImage
     public class UploadImageCommandHandler()
         : IRequestHandler<UploadImageCommand, BaseResponse<String>>
     {
-        /// <summary>
-        /// Maneja el comando para subir una imagen a Google Cloud Storage y retorna la URL generada.
-        /// </summary>
-        /// <param name="request">El comando que contiene los datos necesarios para la carga de la imagen, incluyendo el contenido y el nombre del archivo.</param>
-        /// <param name="cancellationToken">Token de cancelación para manejar solicitudes asincrónicas.</param>
-        /// <returns>
-        /// Un objeto <see cref="BaseResponse{String}"/> que contiene la URL pública de la imagen subida.
-        /// </returns>
-        /// <remarks>
-        /// La función utiliza una ruta local para las credenciales de Google Cloud Storage. 
-        /// El archivo se guarda en el bucket con el prefijo "Owners/" seguido del nombre especificado en <paramref name="request.NamePhoto"/>.
-        /// Asegúrate de que la ruta de las credenciales sea válida y que las configuraciones de permisos de Google Cloud permitan la carga.
-        /// </remarks>        
+      
         public async Task<BaseResponse<String>> Handle([FromForm] UploadImageCommand request, CancellationToken cancellationToken)
         {
 
 
-            var credentialsPath = "Domain/Credentials/western-cascade-449020-u1-0898aeb3e68c.json";
+            var credentialsPath = "Domain/Credentials/western-cascade-449020-u1-da3b3661e5f8.json";
             var response = await UploadFileToGoogleCloudAsync(request.PhotoContent!, "Owners/" + request.NamePhoto+"."+ GetImageFormat(request.PhotoContent!), credentialsPath);
 
 
@@ -36,7 +24,11 @@ namespace PropertiesApi.Application.Features.Files.V1.UploadImage
         }
         public async Task<string> UploadFileToGoogleCloudAsync(byte[] fileBytes, string fileName, string credentialsFilePath)
         {
-
+            var httpClientHandler = new HttpClientHandler();
+            var httpClient = new HttpClient(httpClientHandler)
+            {
+                Timeout = TimeSpan.FromMinutes(10) // Ajusta el tiempo de espera aquí
+            };
             // Creamos un MemoryStream para que el contenido byte[] sea tratable como un archivo
             using (var memoryStream = new MemoryStream(fileBytes))
             {
@@ -47,11 +39,14 @@ namespace PropertiesApi.Application.Features.Files.V1.UploadImage
                 Google.Apis.Auth.OAuth2.GoogleCredential.FromFile(credentialsFilePath)
             );
                 // Subir el archivo al bucket de Google Cloud Storage
-                var storageObject = await _storageClient.UploadObjectAsync(
-                        "test_real_estate_files", objectName, null, memoryStream
-                    );
-    
-                return $"https://storage.googleapis.com/{"test_real_estate_files"}/{fileName}";
+                //var storageObject = await _storageClient.UploadObjectAsync(
+                //        "real_estates_bucket", objectName, null, memoryStream
+                //    );
+                using (var fileStream = System.IO.File.OpenRead(credentialsFilePath))
+                {
+                    var storageObject =  await _storageClient.UploadObjectAsync("real_estates_bucket", objectName, null, fileStream);
+                }
+                return $"https://storage.googleapis.com/{"real_estates_bucket"}/{fileName}";
             }
         }
 

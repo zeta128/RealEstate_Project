@@ -4,12 +4,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PropertiesApi.Application.Common.Wrappers;
 using System;
+using System.ComponentModel;
 
 namespace PropertiesApi.Application.Features.Owners.V1.Commands.CreateProperty
 {
     public class CreatePropertyCommand : IRequest<BaseResponse<string>>
     {
-        public string? Name { get; set; }
+        public string? Name { get; set; } 
 
         public string Address { get; set; } = null!;
 
@@ -38,8 +39,8 @@ namespace PropertiesApi.Application.Features.Owners.V1.Commands.CreateProperty
             Price = price;
             CodeInternal = codeInternal;
             Year = year;
-            IdOwner = idOwner;
-           
+            IdOwner = Guard.Against.NegativeOrZero(idOwner, nameof(idOwner), "The idOwner cannot be empty because is a relational value");
+
         }
 
     }

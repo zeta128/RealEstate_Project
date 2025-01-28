@@ -72,7 +72,7 @@ namespace PropertiesApi.Infraestructure
                     .IsUnicode(false);
                 entity.Property(e => e.Price).HasColumnType("decimal(15, 2)");
 
-                entity.HasOne(d => d.IdOwnerNavigation).WithMany(p => p.Properties)
+                entity.HasOne(d => d.Owner).WithMany(p => p.Properties)
                     .HasForeignKey(d => d.IdOwner)
                     .HasConstraintName("FK__Property__IdOwne__59063A47");
             });

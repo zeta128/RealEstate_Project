@@ -6,7 +6,7 @@
         public int PaginasTotales { get; set; }
         public int? TamanoPagina { get; set; }
         public int TotalDeRegistros { get; set; }
-        public int RegiostrosDevueltoPorLaPagina { get; set; }
+        public int RegistrosDevueltoPorLaPagina { get; set; }
         public bool PuedeRetroceder => PaginaActual > 1;
         public bool PuedeAvanzar => PaginaActual < PaginasTotales;
     }

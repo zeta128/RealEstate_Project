@@ -36,11 +36,26 @@ builder.Services.AddControllers()
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen(c =>
-{  
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Real Estates Information", Version = "v1" });
-    c.MapType<IFormFile>(() => new OpenApiSchema { Type = "string", Format = "binary" });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Real Estate API",
+        Description = "An API to manage real estate properties",      
+        Contact = new OpenApiContact
+        {
+            Name = "Real Estate Support",
+            Email = "eduin.128@gmail.com"          
+        },
+        License = new OpenApiLicense
+        {
+            Name = "MIT License",
+            Url = new Uri("https://opensource.org/licenses/MIT")
+        }
+    });
+    options.MapType<IFormFile>(() => new OpenApiSchema { Type = "string", Format = "binary" });
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme",
         Name = "Authorization",
@@ -50,7 +65,7 @@ builder.Services.AddSwaggerGen(c =>
         BearerFormat = "JWT"
     });
     
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
@@ -63,8 +78,7 @@ builder.Services.AddSwaggerGen(c =>
                     },
                     Array.Empty<string>()
                 }
-            });
-    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+            });   
 });
 
 // Define el filtro para Swagger

@@ -19,5 +19,5 @@ public partial class Property
 
     public long IdOwner { get; set; }
 
-    public virtual OwnerProperty IdOwnerNavigation { get; set; } = null!;
+    public virtual OwnerProperty Owner { get; set; } = null!;
 }

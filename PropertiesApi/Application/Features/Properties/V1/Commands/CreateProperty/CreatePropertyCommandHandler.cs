@@ -1,15 +1,8 @@
 ﻿using Azure;
 using Google.Apis.Storage.v1;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using PropertiesApi.Application.Common.Services;
+
 using PropertiesApi.Application.Common.Wrappers;
-using static System.Net.Mime.MediaTypeNames;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Jpeg; // O el formato que necesites
-using System.IO;
-using Google.Cloud.Storage.V1;
-using PropertiesApi.Infraestructure.Repositories;
 using PropertiesApi.Domain.Entities;
 using PropertiesApi.Domain.Interfaces;
 using Microsoft.IdentityModel.Tokens;
@@ -20,14 +13,7 @@ namespace PropertiesApi.Application.Features.Owners.V1.Commands.CreateProperty
         )
         : IRequestHandler<CreatePropertyCommand, BaseResponse<String>>
     {
-        /// <summary>
-        /// Maneja la creación de un nuevo propietario.
-        /// </summary>
-        /// <param name="request">El comando que contiene la información necesaria para crear un propietario.</param>
-        /// <param name="cancellationToken">El token de cancelación para abortar la operación si es necesario.</param>
-        /// <returns>Un <see cref="Task"/> que representa la operación asincrónica. El resultado contiene los detalles del propietario creado.</returns>
-        /// <exception cref="ArgumentNullException">Se lanza si el comando es nulo.</exception>
-        /// <exception cref="Exception">Se lanza si ocurre un error durante la creación del propietario.</exception>
+      
         public async Task<BaseResponse<String>> Handle(CreatePropertyCommand request, CancellationToken cancellationToken)
         {
             var newProperty = await RegisterProperty(request);
@@ -37,8 +23,12 @@ namespace PropertiesApi.Application.Features.Owners.V1.Commands.CreateProperty
             }   
             return  new BaseResponse<String>(newProperty.IdOwner.ToString(),"");
         }
- 
 
+        /// <summary>
+        /// Registers a new property in the system using the provided data.
+        /// </summary>
+        /// <param name="request">An object containing the necessary data to create the property.</param>
+        /// <returns>The newly created property.</returns>
         private async Task<Property> RegisterProperty(CreatePropertyCommand request)
         {      
             Property newProperty = new Property();
@@ -52,6 +42,13 @@ namespace PropertiesApi.Application.Features.Owners.V1.Commands.CreateProperty
             await unitOfWork.SaveChangesAsync();
             return ownerProperty;
         }
+
+        /// <summary>
+        /// Registers a new property image in the system using the provided data.
+        /// </summary>
+        /// <param name="request">An object containing the necessary data to create the property image.</param>
+        /// <param name="idProperty">The identifier of the property to associate with the image.</param>
+        /// <returns>The newly created property image.</returns>
         private async Task<PropertyImage> RegisterPropertyImage(CreatePropertyCommand request, long idProperty)
         {
             PropertyImage newPropertyImage = new PropertyImage();

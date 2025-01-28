@@ -14,7 +14,9 @@ namespace PropertiesApi.Application.Features.Owners.V1.Commands.CreateProperty
             {
                 return Results.Ok(await sender.Send(datos));
             }).WithTags(Tags.Properties.Tag)
-            .RequireAuthorization().WithDisplayName("display Name").WithSummary("summary").WithTags("tags").WithName("name").WithMetadata("metadata");
+            .WithSummary("Creates a property based on the provided input values.")
+            .WithDescription("<b>The parameters address and idowner are required.<b/>")
+            .RequireAuthorization();
         }
     }
 }

@@ -1,23 +1,14 @@
-﻿using Ardalis.GuardClauses;
-using MediatR;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using PropertiesApi.Application.Common.Wrappers;
+using System.Text.Json.Serialization;
 
 namespace PropertiesApi.Application.Features.Files.V1.UploadImage
 {
-    public class UploadImageCommand : IRequest<BaseResponse<string>>
-    {     
-        public string? NamePhoto { get; set; }
+    public class UploadImageCommand(string namePhoto, byte[] photoContent) : IRequest<BaseResponse<string>>
+    {
+        public string NamePhoto { get; set; } = namePhoto;
+        public byte[] PhotoContent { get; set; } = photoContent;
 
-        public byte[] PhotoContent { get; set; }
-
-
-        //public UploadImageCommand(        
-        //    string? urlPhoto,
-        //    byte[] photoContent
-        //   )
-        //{        
-        //    NamePhoto = urlPhoto;
-        //    PhotoContent = photoContent;
-        //}
     }
 }

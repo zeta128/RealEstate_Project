@@ -4,37 +4,36 @@ namespace PropertiesApi.Application.Common.Services
 {
     public class UploadFilesInCloudService
     {
-        public static async Task<object> GoogleCloudStorageService(string credentialsFilePath, string bucketName)
+     
+
+        public static async Task<string> SaveFileAsync(byte[] fileBytes, string fileName)
         {
-
-            // Crear el cliente usando las credenciales de la cuenta de servicio
-            return await StorageClient.CreateAsync(
-                Google.Apis.Auth.OAuth2.GoogleCredential.FromFile(credentialsFilePath)
-            );
-        }
-
-
-
-        internal static async Task<string> UploadFileToGoogleCloudAsync(byte[] fileBytes, string fileName, string credentialsFilePath)
-        {
-            // Creamos un MemoryStream para que el contenido byte[] sea tratable como un archivo
-            using (var memoryStream = new MemoryStream(fileBytes))
+            try
             {
-                // Especifica el nombre del archivo en Google Cloud Storage y el flujo de datos
-                var objectName = fileName;
-                StorageClient _storageClient;
-                _storageClient = await StorageClient.CreateAsync(
-                Google.Apis.Auth.OAuth2.GoogleCredential.FromFile(credentialsFilePath)
-            );
-                // Subir el archivo al bucket de Google Cloud Storage
-                var storageObject = await _storageClient.UploadObjectAsync(
-                        "test_real_estate_files", objectName, null, memoryStream
-                    );
+                // Directorio donde se almacenarán los archivos (asegurándose de que exista)
+                string directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "UploadedFiles");
 
-                Console.WriteLine($"Archivo {fileName} subido a Google Cloud Storage con éxito.");
-                return $"https://storage.googleapis.com/{"test_real_estate_files"}/{fileName}";
+                // Verificar si el directorio existe, de lo contrario, crearlo
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                // Crear la ruta completa del archivo
+                string filePath = Path.Combine(directoryPath, fileName);
+
+                // Escribir el archivo de manera asincrónica
+                await File.WriteAllBytesAsync(filePath, fileBytes);
+
+                return filePath; // Retorna la ruta donde se almacenó el archivo
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al guardar el archivo: {ex.Message}");
+                return null;
             }
         }
+     
 
     }
 }
