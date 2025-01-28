@@ -28,7 +28,6 @@
     <Folder Include="Application\Features\Owners\V1\Commands\UpdateOwner\" />
     <Folder Include="Application\Features\Owners\V1\Queries\GetListOwners\" />
     <Folder Include="Application\Features\Owners\V1\Queries\GetOwnerById\" />
-    <Folder Include="Application\Features\Properties\V1\Commands\CreateProperty\" />
     <Folder Include="Application\Features\Properties\V1\Commands\UpdateProperty\" />
     <Folder Include="Application\Features\Properties\V1\Queries\GetListProperties\" />
     <Folder Include="Domain\Entities\" />
