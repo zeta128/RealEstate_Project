@@ -20,4 +20,8 @@ public partial class Property
     public long IdOwner { get; set; }
 
     public virtual OwnerProperty Owner { get; set; } = null!;
+
+    public virtual ICollection<PropertyImage> PropertyImages { get; set; } = new List<PropertyImage>();
+
+    public virtual ICollection<PropertyTrace> PropertyTraces { get; set; } = new List<PropertyTrace>();
 }

@@ -14,7 +14,8 @@ namespace PropertiesApi.Application.Features.Owners.V1.Commands.CreateOwner
                 return Results.Ok(await sender.Send(datos));
             }).WithTags(Tags.Owners.Tag)
             .WithSummary("Create an owner")
-            .WithDescription("<b>The parameter fullName is required<b/>")
+            .WithDescription("<b>The parameter fullName is required</b></br>" +
+            "Return in data de id of owner" )
             .RequireAuthorization();
         }
     }

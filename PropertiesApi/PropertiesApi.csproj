@@ -16,6 +16,8 @@
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Carter" Version="8.0.0" />
     <PackageReference Include="DotNetEnv" Version="3.1.1" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.69.0" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.69.0.3674" />
     <PackageReference Include="Google.Cloud.Storage.V1" Version="4.10.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
@@ -32,6 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Application\Common\Services\" />
+    <Folder Include="Application\Features\Files\V1\UploadImage\" />
     <Folder Include="Application\Features\Owners\V1\Commands\UpdateOwner\" />
     <Folder Include="Application\Features\Owners\V1\Queries\GetListOwners\" />
     <Folder Include="Application\Features\Owners\V1\Queries\GetOwnerById\" />

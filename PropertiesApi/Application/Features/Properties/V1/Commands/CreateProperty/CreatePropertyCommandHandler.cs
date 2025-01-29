@@ -21,7 +21,7 @@ namespace PropertiesApi.Application.Features.Owners.V1.Commands.CreateProperty
             {
                 await RegisterPropertyImage(request, newProperty.IdProperty);
             }   
-            return  new BaseResponse<String>(newProperty.IdOwner.ToString(),"");
+            return  new BaseResponse<String>("id"+newProperty.IdOwner.ToString(),"Property creation done");
         }
 
         /// <summary>

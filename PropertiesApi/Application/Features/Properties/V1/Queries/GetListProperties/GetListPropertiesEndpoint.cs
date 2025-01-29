@@ -22,8 +22,8 @@ namespace PropertiesApi.Application.Features.Owners.V1.Queries.GetListProperties
             "yearLessThan (Specify that the year must be less than the given value) </br></br>"+
             "<b>Sorts:</b></br>"+
             "Name, Address, Price, CodeInternal, Year")
-            .WithSummary("Get a list of properties paginated by filters and sorts");
-            //.RequireAuthorization();
+            .WithSummary("Get a list of properties paginated by filters and sorts")
+            .RequireAuthorization();
         }
     }
 }

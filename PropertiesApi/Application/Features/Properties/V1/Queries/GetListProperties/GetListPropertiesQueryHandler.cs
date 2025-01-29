@@ -1,18 +1,8 @@
-﻿using Azure;
-using Google.Apis.Storage.v1;
+﻿
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using PropertiesApi.Application.Common.Services;
 using PropertiesApi.Application.Common.Wrappers;
-using static System.Net.Mime.MediaTypeNames;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Jpeg; // O el formato que necesites
-using System.IO;
-using Google.Cloud.Storage.V1;
-using PropertiesApi.Infraestructure.Repositories;
 using PropertiesApi.Domain.Entities;
 using PropertiesApi.Domain.Interfaces;
-using Microsoft.IdentityModel.Tokens;
 using PropertiesApi.Domain.Options.Pagination;
 using PropertiesApi.Application.Common.Specifications.Properties;
 using PropertiesApi.Application.Features.Properties.V1.Queries.GetListProperties;
@@ -47,6 +37,13 @@ namespace PropertiesApi.Application.Features.Owners.V1.Queries.GetListProperties
 
             return new BaseResponse<Paged<GetListPropertiesResponse>>(propertiesMapped);
         }
+
+        /// <summary>
+        /// Maps a list of properties to a list of response objects, enriching the properties with owner data.
+        /// </summary>
+        /// <param name="properties">A list of properties to be mapped.</param>
+        /// <param name="cancellationToken">A token to monitor cancellation requests during the task execution.</param>
+        /// <returns>Returns a list of GetListPropertiesResponse objects containing the mapped property and owner data.</returns>
         private async Task<IEnumerable<GetListPropertiesResponse>> GetListPropertiesMapped(List<Property> properties, CancellationToken cancellationToken)
         {
             var listaMapeada = new List<GetListPropertiesResponse>();

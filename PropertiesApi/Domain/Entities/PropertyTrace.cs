@@ -16,4 +16,6 @@ public partial class PropertyTrace
     public decimal? Tax { get; set; }
 
     public long IdProperty { get; set; }
+
+    public virtual Property IdPropertyNavigation { get; set; } = null!;
 }

@@ -6,6 +6,7 @@ namespace PropertiesApi.Domain.Entities;
 public partial class OwnerProperty
 {
     public long IdOwner { get; set; }
+
     public string FullName { get; set; } = null!;
 
     public string? Address { get; set; }

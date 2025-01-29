@@ -10,5 +10,8 @@ public partial class PropertyImage
     public long IdProperty { get; set; }
 
     public string? FileUrl { get; set; }
+
     public bool? Enabled { get; set; }
+
+    public virtual Property IdPropertyNavigation { get; set; } = null!;
 }

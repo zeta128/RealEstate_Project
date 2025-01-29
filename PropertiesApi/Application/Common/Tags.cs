@@ -19,9 +19,9 @@
             public const string Tag = "Files";
 
         }
-        public class Login
+        public class Auth
         {
-            public const string Tag = "Login";
+            public const string Tag = "Auth";
 
         }
 
