@@ -1,41 +1,27 @@
-﻿using PropertiesApi.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PropertiesApi.Domain.Entities;
 using PropertiesApi.Domain.Interfaces;
+using PropertiesApi.Infraestructure.Persistence;
+using PropertiesApi.Infraestructure.Repositories.Contracts;
 
 namespace PropertiesApi.Infraestructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly RealEstateDBContext _realEstateDBContext;
-        public IRepository<Property> _propertyRepository { get; private set; }
+        private readonly RealEstateWriteContext _realEstateDBContext;
 
-        public IRepository<OwnerProperty> _ownerPropertyRepository { get; private set; }
-
-        public IRepository<PropertyImage> _propertyImageRepository { get; private set; }
-
-        public IRepository<PropertyTrace> _propertyTraceRepository { get; private set; }
 
         public UnitOfWork(
-            RealEstateDBContext realEstateDBContext,
-            IRepository<Property> propertyRepository,
-            IRepository<OwnerProperty> ownerPropertyRepository,
-            IRepository<PropertyImage> propertyImageRepository,
-            IRepository<PropertyTrace> propertyTraceRepository)
+            RealEstateWriteContext realEstateDBContext)
         {
             _realEstateDBContext = realEstateDBContext;
-            _propertyRepository = propertyRepository;
-            _ownerPropertyRepository = ownerPropertyRepository;
-            _propertyImageRepository = propertyImageRepository;
-            _propertyTraceRepository = propertyTraceRepository;
         }
         public void Dispose()
         {
             _realEstateDBContext.Dispose();
         }
 
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _realEstateDBContext.SaveChangesAsync();
-        }
-       
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
+            await _realEstateDBContext.SaveChangesAsync(cancellationToken);
     }
 }

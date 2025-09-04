@@ -36,10 +36,7 @@
   <ItemGroup>
     <Folder Include="Application\Common\Services\" />
     <Folder Include="Application\Features\Files\V1\UploadImage\" />
-    <Folder Include="Application\Features\Owners\V1\Commands\UpdateOwner\" />
-    <Folder Include="Application\Features\Owners\V1\Queries\GetListOwners\" />
-    <Folder Include="Application\Features\Owners\V1\Queries\GetOwnerById\" />
-    <Folder Include="Application\Features\Properties\V1\Commands\DeletePropertyImage\" />
+    <Folder Include="Application\Features\Owners\V1\Queries\" />
     <Folder Include="Domain\Entities\" />
   </ItemGroup>
 
