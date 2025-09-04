@@ -31,7 +31,7 @@ namespace PropertiesApi.Application.Features.Properties.V1.Queries.Handlers
             var propertiesMapped = new Paged<GetListPropertiesResponse>
             (listPropertiesMapped, listProperties.totalRegistros,
                request.NumberRows, request.NumberPage);
-            return new BaseResponse<Paged<GetListPropertiesResponse>>(propertiesMapped);
+            return new BaseResponse<Paged<GetListPropertiesResponse>>(propertiesMapped.MetaData, propertiesMapped);
         }
 
         /// <summary>
